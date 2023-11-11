@@ -8,7 +8,7 @@ user_bp = Blueprint('user', __name__)
 def new_user():
     try:
         data = request.json
-        if 'email' in data and 'password' in data and 'first_name' in data and 'last_name' in data and 'ph_number' in data and 'address' in data:
+        if 'email' in data and 'password' in data and 'first_name' in data and 'last_name' in data and 'ph_number' in data and 'address' in data and 'area' in data:
             if not user_exists(data['email'], data['ph_number']):
                 add_user(data)
                 return jsonify({"message": "User record created successfully"}), 201

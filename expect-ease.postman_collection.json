@@ -7,6 +7,38 @@
 	},
 	"item": [
 		{
+			"name": "Add user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"user1@123\",\r\n    \"first_name\": \"user\",\r\n    \"last_name\": \"1\",\r\n    \"ph_number\": \"123456789\",\r\n    \"address\": \"user1 address\",\r\n    \"area\" : \"WARNANAGAR\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "login user",
 			"event": [
 				{
@@ -32,7 +64,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"john@example.com\",\r\n    \"password\": \"securepassword\"\r\n}"
+					"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"user1@123\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5000/login/user",
@@ -50,7 +82,7 @@
 			"response": []
 		},
 		{
-			"name": "Add user",
+			"name": "Add worker",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -62,10 +94,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"john@example.com\",\r\n    \"password\": \"securepassword\",\r\n    \"first_name\": \"John\",\r\n    \"last_name\": \"Doe\",\r\n    \"ph_number\": \"123-456-7890\",\r\n    \"address\": \"123 Main St, City\"\r\n}\r\n"
+					"raw": "{\r\n    \"email\": \"worker1@gmail.com\",\r\n    \"password\": \"worker1@123\",\r\n    \"first_name\": \"worker\",\r\n    \"last_name\": \"1\",\r\n    \"ph_number\": \"123456789\",\r\n    \"address\": \"worker1 address\",\r\n    \"area\" : \"WARNANAGAR\",\r\n    \"work_exp\" : \"5\",\r\n    \"age\" : \"40\",\r\n    \"aadhar_number\" : \"worker aadhar_number\",\r\n    \"image\" : \"image-url\"\r\n}\r\n"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/user",
+					"raw": "http://127.0.0.1:5000/worker",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -75,7 +107,50 @@
 					],
 					"port": "5000",
 					"path": [
-						"user"
+						"worker"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login worker",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var firstRecordId = jsonData.id;\r",
+							"pm.environment.set(\"userId\", firstRecordId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"worker1@gmail.com\",\r\n    \"password\": \"worker1@123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/login/worker",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login",
+						"worker"
 					]
 				}
 			},
