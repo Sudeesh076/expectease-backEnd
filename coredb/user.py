@@ -22,6 +22,11 @@ def fetch_user_by_id(user_id):
     cursor.execute("SELECT id, first_name, last_name, ph_number, address, area FROM users WHERE id = ?", (user_id,))
     user = cursor.fetchone()
 
+    db.close()
+
+    if user is None:
+        raise ValueError(f"User with ID {user_id} not found.")
+
     user_dict = {
         "id": user[0],
         "first_name": user[1],
@@ -30,7 +35,7 @@ def fetch_user_by_id(user_id):
         "address": user[4],
         "area": user[5],
     }
-    db.close()
+
     return user_dict
 
 

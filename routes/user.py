@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from coredb.user import add_user, user_exists, check_credentials_user
+from routes.worker import validate_area_type
 
 user_bp = Blueprint('user', __name__)
 
@@ -10,6 +11,7 @@ def new_user():
         data = request.json
         if 'email' in data and 'password' in data and 'first_name' in data and 'last_name' in data and 'ph_number' in data and 'address' in data and 'area' in data:
             if not user_exists(data['email'], data['ph_number']):
+                validate_area_type(data['area'])
                 add_user(data)
                 return jsonify({"message": "User record created successfully"}), 201
             else:

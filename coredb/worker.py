@@ -11,7 +11,8 @@ def add_worker(data):
                       work_exp, age, aadhar_number, image)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
                    (worker_id, data['email'], data['password'], data['first_name'], data['last_name'],
-                    data['ph_number'], data['address'], data['area'], data['type'], data['work_exp'], data['age'], data['aadhar_number'], data['image']))
+                    data['ph_number'], data['address'], data['area'], data['type'], data['work_exp'], data['age'],
+                    data['aadhar_number'], data['image']))
     db.commit()
     db.close()
 
@@ -43,6 +44,10 @@ def check_credentials_worker(email, password):
         return False, "invalid"
 
 
+class WorkerNotFoundException(Exception):
+    pass
+
+
 def fetch_worker_by_id(worker_id):
     db = sqlite3.connect("expect-ease.db")
     cursor = db.cursor()
@@ -51,6 +56,8 @@ def fetch_worker_by_id(worker_id):
         "SELECT id, email, first_name, last_name, ph_number, address, area, type, work_exp, age, aadhar_number, image FROM workers WHERE id = ?",
         (worker_id,))
     worker = cursor.fetchone()
+
+    db.close()
 
     if worker:
         worker_dict = {
@@ -67,8 +74,6 @@ def fetch_worker_by_id(worker_id):
             "aadhar_number": worker[10],
             "image": worker[11],
         }
-        db.close()
         return worker_dict
     else:
-        db.close()
-        return None
+        raise WorkerNotFoundException(f"Worker with ID {worker_id} not found.")

@@ -94,7 +94,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"worker1@gmail.com\",\r\n    \"password\": \"worker1@123\",\r\n    \"first_name\": \"worker\",\r\n    \"last_name\": \"1\",\r\n    \"ph_number\": \"123456789\",\r\n    \"address\": \"worker1 address\",\r\n    \"area\" : \"WARNANAGAR\",\r\n    \"work_exp\" : \"5\",\r\n    \"age\" : \"40\",\r\n    \"aadhar_number\" : \"worker aadhar_number\",\r\n    \"image\" : \"image-url\"\r\n}\r\n"
+					"raw": "{\r\n    \"email\": \"worker1@gmail.com\",\r\n    \"password\": \"worker1@123\",\r\n    \"first_name\": \"worker\",\r\n    \"last_name\": \"1\",\r\n    \"ph_number\": \"123456789\",\r\n    \"address\": \"worker1 address\",\r\n    \"area\" : \"WARNANAGAR\",\r\n    \"type\" : \"ELECTRICIAN\",\r\n    \"work_exp\" : \"5\",\r\n    \"age\" : \"40\",\r\n    \"aadhar_number\" : \"worker aadhar_number\",\r\n    \"image\" : \"image-url\"\r\n}\r\n"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/worker",
@@ -151,6 +151,130 @@
 					"path": [
 						"login",
 						"worker"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"problem\": \"Electrical issue\",\r\n    \"type\": \"ELECTRICIAN\",\r\n    \"time_slot\": \"Morning\",\r\n    \"date\": \"2023-11-12\",\r\n    \"user_id\": \"35da89c5-f940-4121-b63f-3977cd85face\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/service",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accept service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"d7edd0ed-6e27-488c-b949-4ea561ac1d20\",\r\n    \"status\": \"Confirmed\",\r\n    \"worker_id\": \"979e40e6-bf05-440e-b843-e9f9338c9670\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/service",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"257b405f-eb36-42d3-83b6-1f31090b5d5e\",\r\n    \"status\": \"Closed\",\r\n    \"worker_id\": \"1384a061-bbec-49d2-beee-e5500d0a1527\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/service",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "feedback service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"257b405f-eb36-42d3-83b6-1f31090b5d5e\",\r\n    \"feedback\" : \"5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/service",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service"
 					]
 				}
 			},
