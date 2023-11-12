@@ -1,42 +1,20 @@
-import sqlite3
+
 import streamlit as st
-import pandas as pd
+import app1
+import app2
 
 
-#st.image("4.png", use_column_width=True)
+PAGES = {
+    "View Users & Workers": app1,
+    "Remove Users & Workers": app2,
+}
 
-st.title("User Details")
-st.header("Workers and Users")
+html_string1 = "<h2>EXPERTEASE</h2>"
+html_string = "<h4>AN EXPERT AT EASE</h4>"
 
-db = sqlite3.connect(r"C:\Users\dell\Desktop\backend\expectease-backEnd\expect-ease.db")
-cursor = db.cursor()
-
-email_filter = st.text_input("Enter Email to Filter:")
-phone_filter = st.text_input("Enter Phone Number to Filter:")
-first_name_filter = st.text_input("Enter First Name to Filter:")
-last_name_filter = st.text_input("Enter Last Name to Filter:")
-table_selector = st.checkbox("Workers", value=True)
-table_name = "workers" if table_selector else "users"
-
-query = f"SELECT * FROM {table_name} WHERE 1=1"
-if email_filter:
-    query += f" AND email LIKE '%{email_filter}%'"
-if phone_filter:
-    query += f" AND ph_number LIKE '%{phone_filter}%'"
-if first_name_filter:
-    query += f" AND first_name LIKE '%{first_name_filter}%'"
-if last_name_filter:
-    query += f" AND last_name LIKE '%{last_name_filter}%'"
-
-cursor.execute(query)
-result = cursor.fetchall()
-columns = [description[0] for description in cursor.description]
-df = pd.DataFrame(result, columns=columns)
-
-st.dataframe(df.style.set_properties(**{'max-width': '500px'}))
-
-if st.button("Download CSV"):
-    csv_file = df.to_csv(index=False)
-    st.download_button(label="Download CSV", data=csv_file, file_name="user_details.csv", mime="text/csv")
-
-db.close()
+st.sidebar.markdown(html_string1, unsafe_allow_html=True)
+st.sidebar.image('4.png')
+st.sidebar.markdown(html_string, unsafe_allow_html=True)
+selection = st.sidebar.radio("Select: ", list(PAGES.keys()))
+page = PAGES[selection]
+page.app(selection)

@@ -7,11 +7,11 @@ def add_worker(data):
     cursor = db.cursor()
     worker_id = str(uuid.uuid4())
 
-    cursor.execute('''INSERT INTO workers (id, email, password, first_name, last_name, ph_number, address, area,
+    cursor.execute('''INSERT INTO workers (id, email, password, first_name, last_name, ph_number, address, area, type,
                       work_exp, age, aadhar_number, image)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
                    (worker_id, data['email'], data['password'], data['first_name'], data['last_name'],
-                    data['ph_number'], data['address'], data['area'], data['work_exp'], data['age'], data['aadhar_number'],data['image']))
+                    data['ph_number'], data['address'], data['area'], data['type'], data['work_exp'], data['age'], data['aadhar_number'], data['image']))
     db.commit()
     db.close()
 
@@ -48,7 +48,7 @@ def fetch_worker_by_id(worker_id):
     cursor = db.cursor()
 
     cursor.execute(
-        "SELECT id, email, first_name, last_name, ph_number, address, area, work_exp, age, aadhar_number, image FROM workers WHERE id = ?",
+        "SELECT id, email, first_name, last_name, ph_number, address, area, type, work_exp, age, aadhar_number, image FROM workers WHERE id = ?",
         (worker_id,))
     worker = cursor.fetchone()
 
@@ -61,10 +61,11 @@ def fetch_worker_by_id(worker_id):
             "ph_number": worker[4],
             "address": worker[5],
             "area": worker[6],
-            "work_exp": worker[7],
-            "age": worker[8],
-            "aadhar_number": worker[9],
-            "image": worker[10],
+            "type": worker[7],
+            "work_exp": worker[8],
+            "age": worker[9],
+            "aadhar_number": worker[10],
+            "image": worker[11],
         }
         db.close()
         return worker_dict

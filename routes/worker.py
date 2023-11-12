@@ -8,7 +8,7 @@ worker_bp = Blueprint('worker', __name__)
 def new_worker():
     try:
         data = request.json
-        if 'email' in data and 'password' in data and 'first_name' in data and 'last_name' in data and 'ph_number' in data and 'address' in data and 'area' in data and 'work_exp' in data and 'age' in data and 'aadhar_number' in data and 'image' in data:
+        if 'email' in data and 'password' in data and 'first_name' in data and 'last_name' in data and 'ph_number' in data and 'address' in data and 'area' in data and 'type' in data and 'work_exp' in data and 'age' in data and 'aadhar_number' in data and 'image' in data:
             if not worker_exists(data['email'], data['ph_number']):
                 add_worker(data)
                 return jsonify({"message": "Worker record created successfully"}), 201

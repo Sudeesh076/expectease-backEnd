@@ -46,6 +46,7 @@ def create_workers_table(cursor):
         ph_number TEXT,
         address TEXT,
         area TEXT,
+        type TEXT,
         work_exp TEXT,
         age TEXT,
         aadhar_number TEXT,
