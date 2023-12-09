@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 
-from coredb.service import add_service, update_service, fetch_service_by_id
+from coredb.service import add_service, update_service, fetch_service_by_id, fetch_services_by_user_id
+from coredb.serviceRequest import fetch_service_ids_by_worker_id, reject_service_request
 from coredb.user import fetch_user_by_id
 from coredb.worker import fetch_worker_by_id
 from routes.worker import validate_profession_type
@@ -67,3 +68,26 @@ def check_status_transition(last_state, current_state):
     else:
         raise ValueError(f"Invalid status transition from {last_state} to {current_state}.")
 
+
+@service_bp.route('/service/<user_id>', methods=['GET'])
+def fetch_service(user_id):
+    record = fetch_services_by_user_id(user_id)
+    return jsonify(record), 200
+
+
+@service_bp.route('/service/<user_id>/request', methods=['GET'])
+def fetch_service_requests(user_id):
+    record = fetch_service_ids_by_worker_id(user_id)
+    return jsonify(record), 200
+
+
+@service_bp.route('/service/<service_id>/request/<worker_id>', methods=['PUT'])
+def reject_services_request(service_id, worker_id):
+    try:
+        fetch_service_by_id(service_id)
+        fetch_worker_by_id(worker_id)
+        reject_service_request(service_id, worker_id)
+        return jsonify({"message": f"Service record with ID {worker_id} updated successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

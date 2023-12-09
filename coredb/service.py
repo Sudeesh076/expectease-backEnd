@@ -11,14 +11,19 @@ def add_service(data):
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
                    (service_id, data['problem'], data['type'], data['time_slot'], data['date'], data['user_id'], None,
                     "Pending", None))
-
     db.commit()
     db.close()
+    from coredb.serviceRequest import add_service_request
+    add_service_request(service_id, data['type'])
 
 
 def update_service(id, status=None, worker_id=None, feedback=None):
     db = sqlite3.connect("expect-ease.db")
     cursor = db.cursor()
+
+    if status == "Confirmed":
+        from coredb.serviceRequest import update_service_request
+        update_service_request(id, worker_id)
 
     if status is not None:
         cursor.execute('''UPDATE service SET status = ? WHERE id = ?''', (status, id))
@@ -64,4 +69,28 @@ def fetch_service_by_id(service_id):
     return service_dict
 
 
+def fetch_services_by_user_id(user_id):
+    db = sqlite3.connect("expect-ease.db")
+    cursor = db.cursor()
 
+    cursor.execute('''SELECT * FROM service WHERE user_id = ?''', (user_id,))
+    service_records = cursor.fetchall()
+
+    db.close()
+    services_list = []
+    if service_records:
+        for service_record in service_records:
+            service_dict = {
+                "id": service_record[0],
+                "problem": service_record[1],
+                "type": service_record[2],
+                "time_slot": service_record[3],
+                "date": service_record[4],
+                "user_id": service_record[5],
+                "worker_id": service_record[6],
+                "status": service_record[7],
+                "feedback": service_record[8],
+            }
+            services_list.append(service_dict)
+
+    return services_list

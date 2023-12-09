@@ -77,3 +77,24 @@ def fetch_worker_by_id(worker_id):
         return worker_dict
     else:
         raise WorkerNotFoundException(f"Worker with ID {worker_id} not found.")
+
+
+class WorkerNotFoundException(Exception):
+    pass
+
+
+def fetch_worker_ids_by_type(service_type):
+    db = sqlite3.connect("expect-ease.db")
+    cursor = db.cursor()
+
+    cursor.execute(
+        "SELECT id FROM workers WHERE type = ?",
+        (service_type,))
+    worker_ids = cursor.fetchall()
+
+    db.close()
+
+    if worker_ids:
+        return [worker[0] for worker in worker_ids]
+    else:
+        raise WorkerNotFoundException(f"No workers found for service type {service_type}.")

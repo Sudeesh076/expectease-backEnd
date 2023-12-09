@@ -163,7 +163,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"problem\": \"Electrical issue\",\r\n    \"type\": \"ELECTRICIAN\",\r\n    \"time_slot\": \"Morning\",\r\n    \"date\": \"2023-11-12\",\r\n    \"user_id\": \"35da89c5-f940-4121-b63f-3977cd85face\"\r\n}",
+					"raw": "{\r\n    \"problem\": \"Electrical issue\",\r\n    \"type\": \"ELECTRICIAN\",\r\n    \"time_slot\": \"Morning\",\r\n    \"date\": \"2023-11-12\",\r\n    \"user_id\": \"b63b52b4-56de-4775-90d3-15f9eae1ef5e\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -194,7 +194,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"d7edd0ed-6e27-488c-b949-4ea561ac1d20\",\r\n    \"status\": \"Confirmed\",\r\n    \"worker_id\": \"979e40e6-bf05-440e-b843-e9f9338c9670\"\r\n}",
+					"raw": "{\r\n    \"id\": \"f8170fbd-7b77-4c8a-964f-7ad42b03a058\",\r\n    \"status\": \"Confirmed\",\r\n    \"worker_id\": \"deb78fd0-4377-446d-8a78-8b3094fdd750\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -213,6 +213,40 @@
 					"port": "5000",
 					"path": [
 						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reject service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/service/cdc1b988-4730-4a20-ab52-38bd9cd37129/request/8f8ea9ac-f92a-4ccc-b692-2260b1f1ed60",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service",
+						"cdc1b988-4730-4a20-ab52-38bd9cd37129",
+						"request",
+						"8f8ea9ac-f92a-4ccc-b692-2260b1f1ed60"
 					]
 				}
 			},
@@ -275,6 +309,53 @@
 					"port": "5000",
 					"path": [
 						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch services for worker",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/service/3f9f9a1d-357a-4afe-8b50-7e8b3c0d13ef/request",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service",
+						"3f9f9a1d-357a-4afe-8b50-7e8b3c0d13ef",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch services for user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/service/b63b52b4-56de-4775-90d3-15f9eae1ef5e",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service",
+						"b63b52b4-56de-4775-90d3-15f9eae1ef5e"
 					]
 				}
 			},
