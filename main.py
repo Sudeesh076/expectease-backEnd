@@ -13,4 +13,4 @@ app.register_blueprint(service_bp)
 if __name__ == '__main__':
     startDb()
     sampleData()
-    app.run(debug=False, port=5000)
+    app.run(debug=False)
