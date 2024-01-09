@@ -1,6 +1,9 @@
 import sqlite3
 import uuid
 
+from coredb.user import fetch_user_by_id
+from coredb.worker import fetch_worker_by_id
+
 
 def add_service(data):
     db = sqlite3.connect("expect-ease.db")
@@ -80,14 +83,18 @@ def fetch_services_by_user_id(user_id):
     services_list = []
     if service_records:
         for service_record in service_records:
+            if service_record[6] is None:
+                worker_id = None
+            else:
+                worker_id = fetch_worker_by_id(service_record[6])
             service_dict = {
                 "id": service_record[0],
                 "problem": service_record[1],
                 "type": service_record[2],
                 "time_slot": service_record[3],
                 "date": service_record[4],
-                "user_id": service_record[5],
-                "worker_id": service_record[6],
+                "user_id": fetch_user_by_id(service_record[5]),
+                "worker_id": worker_id,
                 "status": service_record[7],
                 "feedback": service_record[8],
             }

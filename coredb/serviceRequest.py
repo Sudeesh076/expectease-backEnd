@@ -2,7 +2,8 @@ import sqlite3
 import uuid
 
 from coredb.service import fetch_service_by_id
-from coredb.worker import fetch_worker_ids_by_type
+from coredb.user import fetch_user_by_id
+from coredb.worker import fetch_worker_ids_by_type, fetch_worker_by_id
 
 
 def add_service_request(service_id, service_type):
@@ -60,8 +61,24 @@ def fetch_service_ids_by_worker_id(worker_id):
     db.close()
 
     service_records = []
+
     for service_id in service_ids:
         service_record = fetch_service_by_id(service_id)
-        service_records.append(service_record)
+        if service_record["worker_id"] is None:
+            worker_id = None
+        else:
+            worker_id = fetch_worker_by_id(service_record["worker_id"])
+
+        service_dict = {
+            "id": service_record["id"],
+            "problem": service_record["problem"],
+            "type": service_record["type"],
+            "time_slot": service_record["time_slot"],
+            "date": service_record["date"],
+            "user_id": fetch_user_by_id(service_record["user_id"]),
+            "worker_id": worker_id,
+            "status": service_record["status"],
+            "feedback": service_record["feedback"], }
+        service_records.append(service_dict)
 
     return service_records
